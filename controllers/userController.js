@@ -22,6 +22,7 @@ const registerUser = asyncHandler(async (req, res) => {
       id: user.id,
       name: user.name,
       email: user.email,
+      token: genrateJWTtoken(user._id),
     })
   } else {
     res.status(400).json({
@@ -40,6 +41,7 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(200).json({
       name: user.name,
       email: user.email,
+      token: genrateJWTtoken(user._id),
     })
   } else {
     res.status(400).json({
@@ -53,5 +55,8 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     message: "This is the current User",
   })
 })
+
+const genrateJWTtoken = (id) =>
+  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "5d" })
 
 module.exports = { registerUser, loginUser, getCurrentUser }
