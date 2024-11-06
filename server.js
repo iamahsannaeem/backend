@@ -11,6 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use("/tasks", require("./routes/tasksRoutes"))
+app.use("/users", require("./routes/userRoutes"))
 
 app.use(errorHandler)
 app.listen(port, () => console.log(`Backend server is listening on ${port}`))
